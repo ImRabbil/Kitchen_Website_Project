@@ -69,4 +69,31 @@ class CheckoutController extends Controller
      }
 
    }
+
+
+
+
+   public function Subscribe(Request $request){
+      $data=array();
+      $data['email']=$request->email;
+      DB::table('subscribes')->insert($data);
+      return redirect()->back();
+
+   }
+
+   public function Subs(){
+      $sub = DB::table('subscribes')->get();
+      return view('backend.pages.subs.index',compact('sub'));
+
+   }
+
+   public function Sub_Delete($id){
+      DB::table('subscribes')->where('id',$id)->delete();
+      return redirect()->back();
+   }
+
+
+
+
+
 }

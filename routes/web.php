@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductCheckoutController;
 use App\Http\Controllers\Backend\TextSliderController;
+use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Fontend\CheckoutController;
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +28,10 @@ Route::get('/', function () {
     $product = DB::table('products')->get();
     $about = DB::table('about_us')->first();
     $slider = DB::table('text_sliders')->get();
+    $setting = DB::table('settings')->first();
+    
   
-    return view('fontend.layouts.home',compact('product','about','slider'));
+    return view('fontend.layouts.home',compact('product','about','slider','setting'));
 })->name('home');
 
 Route::middleware([
@@ -37,7 +40,8 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('backend.layouts.home');
+        $user = DB::table('users')->first();
+        return view('backend.layouts.home',compact('user'));
     })->name('dashboard');
 });
 
@@ -68,6 +72,14 @@ Route::get('/backend/delete/product/{id}', [ProductController::class, 'Product_D
 Route::get('/checkout/{id}', [CheckoutController::class, 'Fontend_Checkout'])->name('fontend.checkout');
 Route::post('/checkout/store', [CheckoutController::class, 'Fontend_Checkout_Store'])->name('fontend.checkout.store');
 
+//footer subscribe route of fontend
+Route::post('/subscribe', [CheckoutController::class, 'Subscribe'])->name('subscribe');
+//footer subscribe route of backend
+Route::get('/backend/subs', [CheckoutController::class, 'Subs'])->name('backend.subs');
+Route::get('/backend/delete/sub/{id}', [CheckoutController::class, 'Sub_Delete']);
+
+
+
 //backend checkout route here--------------
 Route::get('/checkout', [ProductCheckoutController::class, 'Backend_Checkout'])->name('backend.products.checkout');
 Route::get('/backend/delete/product/checkout/{id}', [ProductCheckoutController::class, 'Product_Checkout_Delete']);
@@ -76,3 +88,14 @@ Route::get('/backend/delete/product/checkout/{id}', [ProductCheckoutController::
 Route::get('/sliders', [TextSliderController::class, 'Backend_Slider'])->name('backend.sliders');
 Route::get('/backend/add/sliders', [TextSliderController::class, 'Add_Slider'])->name('backend.add.slider');
 Route::post('/backend/store/sliders', [TextSliderController::class, 'Slider_Store'])->name('store.backend.slider');
+Route::get('/backend/edit/about/{id}', [TextSliderController::class, 'Slider_Edit']);
+Route::post('/backend/update/about/{id}', [TextSliderController::class, 'Slider_Update'])->name('update.backend.slider');
+Route::get('/backend/delete/about/{id}', [TextSliderController::class, 'Slider_Delete']);
+
+//backend setting route here--------
+
+Route::get('/view-setting', [SettingController::class, 'view_setting'])->name('view.setting');
+Route::post('/update/setting', [SettingController::class, 'update_Setting'])->name('update.setting');
+
+
+

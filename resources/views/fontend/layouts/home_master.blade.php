@@ -12,7 +12,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
    <!-- site metas -->
-   <link rel="shortcut icon" href="{{ asset('fontend') }}/icon/Ketchen.png" type="image/x-icon">
+   <link rel="shortcut icon" href="{{ asset($setting->fav_icon) }}" type="image/x-icon">
    <title>Kitchen Hardware Solutions Inc</title>
    <meta name="keywords" content="">
    <meta name="description" content="">
@@ -79,7 +79,8 @@
 
 
 
-//toster link here
+{{-- //toster link here --}}
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 

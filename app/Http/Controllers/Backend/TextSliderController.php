@@ -28,6 +28,32 @@ class TextSliderController extends Controller
         return redirect()->route('backend.sliders');
     }
 
+    public function Slider_Edit( $id)
+    {    $edit = DB::table('text_sliders')->where('id', $id)->first();
+
+        return view('backend.pages.slider.edit_page',compact('edit'));
+    }
+
+
+    public function Slider_Update(Request $request,$id)
+    {
+        $data = array();
+        $data['title'] = $request->title;
+        $data['desc'] = $request->desc;
+        DB::table('text_sliders')->where('id',$id)->insert($data);
+        return redirect()->route('backend.sliders');
+    }
+
+    public function Slider_Delete($id){
+        DB::table('text_sliders')->where('id',$id)->delete();
+        return redirect()->route('backend.sliders');
+
+    }
+
+
+
+
+
 
 
 

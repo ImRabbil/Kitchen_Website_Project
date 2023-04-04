@@ -5,7 +5,7 @@
                 <div class="full">
                     <div class="center-desk">
                         <div class="logo">
-                            <a href="{{ url('/') }}"><img src=" {{ asset('fontend') }}/images/Logo2.png" alt="#" /></a>
+                            <a href="{{ url('/') }}"><img src=" {{ asset($setting->logo) }}" alt="#" /></a>
                         </div>
                     </div>
                 </div>
